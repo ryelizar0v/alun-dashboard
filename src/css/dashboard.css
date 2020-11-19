@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+* {
+   font-family: 'DM Sans', sans-serif;
+}
+.container {
+   width: 100vw;
+   height: 100vh;
+   display: grid;
+   grid-template-areas: 
+      "header header shipment"
+      "header header shipment"
+      "transactions transactions shipment";
+   grid-template-columns: 35% 35% 30%;
+   grid-template-rows: 25% 25% 50%;
+   background-color: #eeeeee;
+}
+
+.header {
+   grid-area: header;
+   padding: 3rem;
+}
+
+.transactions {
+   grid-area: transactions;
+   padding: 0 3rem;
+   overflow: auto;
+}
+
+.shipment {
+   background-color: #ffffff;
+   grid-area: shipment;
+   padding: 3rem;
+   border-radius: 3rem 0 0 3rem;
+}
+
+.shipment--actors {
+   padding: 1.5rem;
+   margin-bottom: 2rem;
+}
+
+.header--nav-button {
+   margin-right: 1.5rem;
+}
