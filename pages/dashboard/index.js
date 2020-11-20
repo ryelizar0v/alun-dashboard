@@ -1,19 +1,19 @@
-import { Button } from "@material-ui/core"
+import Navigation from "../../src/components/Nav"
 import ShippingDetails from "../../src/components/ShippingDetails"
 import Transactions from "../../src/components/Transactions"
 
+import styles from "../../src/css/dashboard.module.css"
+
 export default function Dashboard() {
    return <>
-      <div className="container">
-         <div className="header">
-            <Button className="header--nav-button" variant="contained" color="secondary" disableElevation>Overview</Button>
-            <Button variant="text" color="primary">Add a parcel</Button>
-            <Button variant="text" color="primary">History</Button>
+      <div className={styles.container}>
+         <div className={styles.header}>
+            <Navigation />
          </div>
-         <div className="transactions">
+         <div className={styles.transactions}>
             <Transactions />
          </div>
-         <div className="shipment">
+         <div className={styles.shipment}>
             <ShippingDetails />
          </div>
       </div>

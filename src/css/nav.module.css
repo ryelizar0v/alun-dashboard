@@ -1,0 +1,8 @@
+.button {
+   margin-right: 2rem;
+}
+
+.buttonContainer {
+   display: flex;
+   justify-content: flex-start;
+}
