@@ -1,3 +1,6 @@
 node_modules
 package-lock.json
 .next
+config.js
+/pages/api
+/services/useDeliveries.js

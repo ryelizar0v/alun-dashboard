@@ -6,8 +6,8 @@
       "header header shipment"
       "header header shipment"
       "transactions transactions shipment";
-   grid-template-columns: 35% 35% 30%;
-   grid-template-rows: 25% 25% 50%;
+   grid-template-columns: 1fr 1fr 1fr;
+   grid-template-rows: 1fr 1fr 2fr;
    background-color: #eeeeee;
 }
 
