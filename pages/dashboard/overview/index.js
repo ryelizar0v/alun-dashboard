@@ -7,6 +7,7 @@ import getDeliveries from "../../../services/dashboard/getDeliveries"
 
 import Drawer from "@material-ui/core/Drawer"
 import Banner from "../../../components/dashboard/Banner"
+import { useMediaQuery } from "@material-ui/core"
 
 export default function Dashboard(props) {
 
@@ -25,34 +26,32 @@ export default function Dashboard(props) {
 
    const [shipmentDetails, setShipmentDetails] = useState({})
 
+   const desktop = useMediaQuery("(min-width: 80.01em)")
+
    return <>
-      <div className={styles.container}>
-         <div className={`${styles.main} ${showShipment ? styles.collapsed : styles.full}`}>
-            <div className={styles.head}>
-               <Navigation />
-               <Banner />
-            </div>
-            <div className={styles.transactions}>
-               <Transactions 
-                  deliveries={deliveryData} 
-                  updateDeliveries={setDeliveryData}
-                  showDetails={handleShowShipment}
-                  getDetails={setShipmentDetails}
-               />
-            </div>
+      <div className={`${styles.main} ${showShipment ? styles.collapsed : styles.full}`}>
+         <Navigation />
+         <Banner />
+         <div className={styles.transactions}>
+            <Transactions 
+               deliveries={deliveryData} 
+               updateDeliveries={setDeliveryData}
+               showDetails={handleShowShipment}
+               getDetails={setShipmentDetails}
+            />
          </div>
-         <Drawer
-            variant="persistent"
-            anchor="right"
-            open={showShipment}
-            classes={{
-               paper: styles.shipment
-            }}
-            onClose={handleCloseShipment}
-         >
-            <ShippingDetails data={shipmentDetails} />
-         </Drawer>
       </div>
+      <Drawer
+         variant={desktop ? "persistent" : "temporary"}
+         anchor="right"
+         open={showShipment}
+         classes={{
+            paper: styles.shipment
+         }}
+         onClose={handleCloseShipment}
+      >
+         <ShippingDetails data={shipmentDetails} />
+      </Drawer>
    </>
 }
 

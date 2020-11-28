@@ -4,5 +4,15 @@
 
 .buttonContainer {
    display: flex;
+   flex-wrap: wrap;
    justify-content: flex-start;
+   position: sticky;
+   top: 3rem;
+   z-index: 1;
+}
+
+@media (max-width: 36em) {
+   .buttonContainer {
+      top: 2rem;
+   }
 }

@@ -1,14 +1,12 @@
 import Button from '@material-ui/core/Button'
-
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
-
 import { useState } from "react"
 import { Typography } from '@material-ui/core'
-
+import dayjs from "dayjs"
 import getDeliveries from "../../services/dashboard/getDeliveries"
 import cancelDelivery from "../../services/dashboard/cancelDelivery"
 
@@ -43,14 +41,17 @@ export default function Transactions(props) {
   const isSelected = (number) => { return selected.indexOf(number) !== -1 }
 
   return <>
-    <Typography variant="h5" gutterBottom><strong>Transaction History</strong></Typography>
-
+    <div className={styles.header}>
+      <Typography variant="h5"><strong>Transaction History</strong></Typography>
+    </div>
     <div className={styles.table} >
       {deliveries?.map((row) => (
-        <div key={row.deliveryId}
+        <div 
+          key={row.deliveryId}
           className={`${styles.row} ${isSelected(row.trackingNumber) ? styles.selected : ""}`}
         >
-          <div className={styles.cell}
+          <div 
+            className={styles.cell}
             onClick={(e) => {
               getDetails(row)
               handleSelectRow(e, row.trackingNumber)
@@ -59,20 +60,31 @@ export default function Transactions(props) {
           >
             <strong>{row.trackingNumber}</strong>
           </div>
-          <div className={styles.cell} align="center">
+          <div className={styles.cell} >
             {row.receiverAddress}
           </div>
-          <div className={styles.cell} align="center">
-            {row.createdAt}
+          <div className={styles.cell} >
+            {dayjs(row.createdAt).format("MMMM D, YYYY h:mm:ss A")}
           </div>
-          <div className={styles.cell} align="center">
-            <span className={styles.status}>{row.status}</span>
+          <div className={styles.cell} >
+            <div className={`${styles.status}
+              ${row.status == "Cancelled"
+                ? styles.cancelled
+                : (row.status == "Pending" || row.status == "Delivered")
+                  ? styles.yellow
+                  : styles.orange
+              }
+            `}>
+              {row.status}
+            </div>
           </div>
-          <div className={styles.cell} align="right">
+          <div className={styles.cell}>
             <Button variant="outlined" color="primary"
               disabled={row.status == "Cancelled" ? true : false}
               onClick={() => handleClickOpen(row.deliveryId)}
-            >Cancel</Button>
+            >
+              Cancel
+            </Button>
           </div>
         </div>
 

@@ -12,6 +12,9 @@ export default function Banner() {
          <div className={styles.item}>
             <img src="/alun-1.png" className={styles.image} />
          </div>
+         <div className={styles.item}>
+            <img src="/alun-3.jpg" className={styles.image} />
+         </div>
       </Carousel>
     )
 }

@@ -1,31 +1,14 @@
-.container {
-   width: 100vw;
-   height: 100vh;
-   background-color: #F6F6F8;
-}
-
 .shipment {
    width: 30vw;
    padding: 3rem;
    border-radius: 3rem 0 0 3rem;
-}
-
-@media (min-width: 320px) and (max-width: 768px) {
-   .shipment {
-      width: 90vw;
-      padding: 3rem;
-      border-radius: 3rem 0 0 3rem;
-   }
+   transition: all .5s;
 }
 
 .main {
-   height: 100vh;
    padding: 3rem;
-   display: grid;
-   grid-template-areas: 
-      "head"
-      "transactions";
-   grid-template-rows: 1fr 1fr;
+   display: flex;
+   flex-direction: column;
    transition: all .5s;
 }
 
@@ -37,10 +20,42 @@
    width: 70vw;
 }
 
-.head {
-   grid-area: head;
+.transactions {
+   margin-top: 1.5rem;
 }
 
-.transactions {
-   grid-area: transactions;
+@media (max-width: 36em) {
+   .shipment {
+      width: 90vw;
+      padding: 2.5rem;
+      border-radius: 3rem 0 0 3rem;
+   }
+
+   .transactions {
+      margin-top: 1.5rem;
+   }
+
+   .main {
+      padding: 2rem;
+   }
+
+   .collapsed {
+      width: 100vw;
+   }
+}
+
+@media (min-width: 36em) and (max-width: 80em) {
+   .shipment {
+      width: 50vw;
+      padding: 3rem;
+      border-radius: 3rem 0 0 3rem;
+   }
+
+   .transactions {
+      margin-top: 1.25rem;
+   }
+
+   .collapsed {
+      width: 100vw;
+   }
 }
