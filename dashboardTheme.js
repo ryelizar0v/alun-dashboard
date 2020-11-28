@@ -18,13 +18,18 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "DM Sans"
+    fontFamily: "DM Sans",
   },
   overrides: {
     MuiButton: {
       root: {
         borderRadius: "1.5rem",
         textTransform: "none"
+      }
+    },
+    MuiDrawer: {
+      paperAnchorDockedRight: {
+        borderLeft: "none"
       }
     }
   }

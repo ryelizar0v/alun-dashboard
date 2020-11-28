@@ -1,0 +1,46 @@
+.container {
+   width: 100vw;
+   height: 100vh;
+   background-color: #F6F6F8;
+}
+
+.shipment {
+   width: 30vw;
+   padding: 3rem;
+   border-radius: 3rem 0 0 3rem;
+}
+
+@media (min-width: 320px) and (max-width: 768px) {
+   .shipment {
+      width: 90vw;
+      padding: 3rem;
+      border-radius: 3rem 0 0 3rem;
+   }
+}
+
+.main {
+   height: 100vh;
+   padding: 3rem;
+   display: grid;
+   grid-template-areas: 
+      "head"
+      "transactions";
+   grid-template-rows: 1fr 1fr;
+   transition: all .5s;
+}
+
+.full {
+   width: 100vw;
+}
+
+.collapsed {
+   width: 70vw;
+}
+
+.head {
+   grid-area: head;
+}
+
+.transactions {
+   grid-area: transactions;
+}

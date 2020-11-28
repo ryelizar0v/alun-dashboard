@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CONFIG } from "../config"
+import { CONFIG } from "../../config"
 
 export default async function getDeliveries() {
    try {
@@ -15,7 +15,7 @@ export default async function getDeliveries() {
          try {
             const response = await axios.get("https://dev-api.alun.app/api/pool/delivery", {
                headers: {
-               Authorization: `Bearer ${token}`
+                  Authorization: `Bearer ${token}`
                }
             })
             if (response.data.success) {

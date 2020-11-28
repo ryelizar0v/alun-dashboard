@@ -4,3 +4,6 @@ package-lock.json
 config.js
 /pages/api
 /services/useDeliveries.js
+/dump
+/pages/dashboard/test.js
+/public

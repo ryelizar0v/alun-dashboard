@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Button } from "@material-ui/core"
-import nav from "../css/nav.module.css"
+import nav from "../../css/dashboard/nav.module.css"
 
 export default function Navigation() {
    return <>

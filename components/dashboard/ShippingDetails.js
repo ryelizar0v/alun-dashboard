@@ -1,21 +1,24 @@
 import { Button, Step, StepContent, StepLabel, Stepper, Typography } from "@material-ui/core"
-import styles from "../css/dashboard.module.css"
+import styles from "../../css/dashboard/shipment.module.css"
 
-export default function ShippingDetails() {
+export default function ShippingDetails(props) {
+
+   const { data } = props
+
    return <>
-      <Typography variant="h4"><strong>Shipping Details</strong></Typography>
-      <Typography variant="h6"><strong>LK 1234 5678</strong></Typography>
+      <Typography variant="h4" gutterBottom><strong>Shipping Details</strong></Typography>
+      <Typography variant="h6"><strong>{data.trackingNumber}</strong></Typography>
       
       <div className={styles.shipmentActors}>
          <div style={{marginBottom: "1.5rem"}}>
             <Typography variant="overline">Sender</Typography>
-            <Typography variant="h5"><strong>Cristina Tabag</strong></Typography>
-            <Typography variant="subtitle1">San Miguel, Iriga City</Typography>
+            <Typography variant="h5"><strong>{data.senderName}</strong></Typography>
+            <Typography variant="subtitle1">{data.senderAddress}</Typography>
          </div>
          <div>
             <Typography variant="overline">Receiver</Typography>
-            <Typography variant="h5"><strong>Neil Tuason</strong></Typography>
-            <Typography variant="subtitle1">Ortigas Center, Pasig City</Typography>
+            <Typography variant="h5"><strong>{data.receiverName}</strong></Typography>
+            <Typography variant="subtitle1">{data.receiverAddress}</Typography>
          </div>
       </div>
 
@@ -29,13 +32,10 @@ export default function ShippingDetails() {
                   <Typography variant="subtitle1">Iriga City, Camarines Sur</Typography>
                </StepContent>
             </Step>
-            <Step key={2} expanded>
+            <Step key={2}>
                <StepLabel>
                   <Typography variant="h6"><strong>In Transit</strong></Typography>
                </StepLabel>
-               <StepContent>
-                  <Typography variant="subtitle1">Naga City, Camarines Sur</Typography>
-               </StepContent>
             </Step>
             <Step key={3} expanded>
                <StepLabel>
