@@ -1,39 +1,18 @@
-import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
 import { useState } from "react"
 import { Typography } from '@material-ui/core'
 import dayjs from "dayjs"
-import getDeliveries from "../../services/dashboard/getDeliveries"
-import cancelDelivery from "../../services/dashboard/cancelDelivery"
 
 import styles from "../../css/dashboard/table.module.css"
 
 export default function Transactions(props) {
 
-  const { deliveries, updateDeliveries, showDetails, getDetails } = props
-  const [cancelledDelivery, setCancelledDelivery] = useState(null)
-
-  const [open, setOpen] = useState(false)
-
-  const handleClickOpen = (a) => {
-    setOpen(true)
-    setCancelledDelivery(a)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const { deliveries, showDetails, getDetails } = props
 
   const [selected, setSelected] = useState([])
 
   const handleSelectRow = (e, number) => {
     const selectedIndex = selected.indexOf(number)
     let newSelected = []
-
     if (selectedIndex === -1) newSelected.push(number)
     setSelected(newSelected)
   }
@@ -68,55 +47,18 @@ export default function Transactions(props) {
           </div>
           <div className={styles.cell} >
             <div className={`${styles.status}
-              ${row.status == "Cancelled"
-                ? styles.cancelled
-                : (row.status == "Pending" || row.status == "Delivered")
-                  ? styles.yellow
-                  : styles.orange
+              ${row.status == "Cancelled" ? styles.cancelled
+                : row.status == "In Transit" ? styles.inTransit
+                : row.status == "Pending" ? styles.pending
+                : row.status == "Picked Up" ? styles.pickedUp
+                : styles.delivered
               }
             `}>
               {row.status}
             </div>
           </div>
-          <div className={styles.cell}>
-            <Button variant="outlined" color="primary"
-              disabled={row.status == "Cancelled" ? true : false}
-              onClick={() => handleClickOpen(row.deliveryId)}
-            >
-              Cancel
-            </Button>
-          </div>
         </div>
-
       ))}
     </div>
-
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogTitle id="alert-dialog-title">{"Cancel delivery"}</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          Are you sure you want to cancel delivery?
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          No
-        </Button>
-        <Button onClick={
-          async () => {
-            await cancelDelivery(cancelledDelivery)
-            setOpen(false)
-            const data = await getDeliveries()
-            updateDeliveries(data.deliveries)
-        }} color="primary" autoFocus>
-          Yes
-        </Button>
-      </DialogActions>
-    </Dialog>
   </>
 }
