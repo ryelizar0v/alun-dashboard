@@ -1,0 +1,37 @@
+.row {
+   display: flex;
+   justify-content: space-around;
+   transition: all .5s;
+}
+
+.field {
+   width: 33.3333%;
+   margin: 1rem 1rem 1.5rem 0;
+   transition: all .5s;
+}
+
+.group {
+   margin: 2rem 0;
+   transition: all .5s;
+}
+
+.button {
+   display: flex;
+   justify-content: space-around;
+   width: 25%;
+}
+
+@media only screen and (max-width: 36rem) {
+   .row {
+      flex-direction: column;
+   }
+
+   .field {
+      width: 100%;
+      margin: 1rem 0;
+   }
+
+   .button {
+      width: 100%;
+   }
+}

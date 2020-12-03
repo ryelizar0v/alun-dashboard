@@ -1,6 +1,6 @@
 .banner {
    border-radius: 3rem;
-   height: 35vh;
+   height: 45vh;
    margin-top: 1.5rem;
    transition: all .5s;
 }
@@ -18,13 +18,13 @@
 
 @media (max-width: 36em) {
    .banner {
-      height: 20vh;
+      height: 25vh;
       border-radius: 1rem;
       margin-top: 1rem;
    }
 }
 
-@media (max-height: 375px) {
+@media (max-height: 36em) {
    .banner {
       display: none;
    }
