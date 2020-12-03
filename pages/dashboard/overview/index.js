@@ -2,7 +2,7 @@ import { useState } from "react"
 import Navigation from "../../../components/dashboard/Nav"
 import ShippingDetails from "../../../components/dashboard/ShippingDetails"
 import Transactions from "../../../components/dashboard/Transactions"
-import styles from "../../../css/dashboard/layout.module.css"
+import styles from "../../../css/dashboard/overview.layout.module.css"
 import getDeliveries from "../../../services/dashboard/getDeliveries"
 
 import Drawer from "@material-ui/core/Drawer"
@@ -20,9 +20,7 @@ export default function Dashboard(props) {
       else setShowShipment(false)
    }
 
-   const handleCloseShipment = () => {
-      setShowShipment(false)
-   }
+   const handleCloseShipment = () => setShowShipment(false)
 
    const [shipmentDetails, setShipmentDetails] = useState({})
 
@@ -30,12 +28,15 @@ export default function Dashboard(props) {
 
    return <>
       <div className={`${styles.main} ${showShipment ? styles.collapsed : styles.full}`}>
-         <Navigation />
-         <Banner />
+         <div className={styles.nav}>
+            <Navigation />
+         </div>
+         <div className={styles.banner} >
+            <Banner />
+         </div>
          <div className={styles.transactions}>
             <Transactions 
-               deliveries={deliveryData} 
-               updateDeliveries={setDeliveryData}
+               deliveries={deliveryData}
                showDetails={handleShowShipment}
                getDetails={setShipmentDetails}
             />
@@ -50,7 +51,11 @@ export default function Dashboard(props) {
          }}
          onClose={handleCloseShipment}
       >
-         <ShippingDetails data={shipmentDetails} />
+         <ShippingDetails 
+            data={shipmentDetails} 
+            updateDeliveries={setDeliveryData}
+            show={setShowShipment}
+         />
       </Drawer>
    </>
 }
