@@ -12,10 +12,12 @@
     "@material-ui/icons": "^4.9.1",
     "axios": "^0.21.0",
     "dayjs": "^1.9.6",
+    "formik": "^2.2.5",
     "next": "10.0.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-material-ui-carousel": "^2.1.1",
-    "swr": "^0.3.9"
+    "swr": "^0.3.9",
+    "yup": "^0.31.1"
   }
 }

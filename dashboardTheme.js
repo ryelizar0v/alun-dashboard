@@ -14,11 +14,12 @@ const theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      default: '#f6f6f8',
+      default: '#fdfaf6',
     },
   },
   typography: {
     fontFamily: "DM Sans",
+    fontSize: 16,
   },
   overrides: {
     MuiButton: {
