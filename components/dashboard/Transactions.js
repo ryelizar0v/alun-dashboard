@@ -47,14 +47,14 @@ export default function Transactions(props) {
           </div>
           <div className={styles.cell} >
             <div className={`${styles.status}
-              ${row.status == "Cancelled" ? styles.cancelled
-                : row.status == "In Transit" ? styles.inTransit
-                : row.status == "Pending" ? styles.pending
-                : row.status == "Picked Up" ? styles.pickedUp
+              ${row.delivery_status_histories[0]?.status == "Cancelled" ? styles.cancelled
+                : row.delivery_status_histories[0]?.status == "In transit" ? styles.inTransit
+                : row.delivery_status_histories[0]?.status == "Pending" ? styles.pending
+                : row.delivery_status_histories[0]?.status == "Picked up" ? styles.pickedUp
                 : styles.delivered
               }
             `}>
-              {row.status}
+              {row.delivery_status_histories[0]?.status}
             </div>
           </div>
         </div>

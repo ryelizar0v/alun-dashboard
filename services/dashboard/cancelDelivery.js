@@ -12,8 +12,8 @@ export default async function cancelDelivery(id) {
       if (tokenRes.data.success) {
          token = tokenRes.data.result         
          try {
-            const response = await axios.put(`https://dev-api.alun.app/api/pool/delivery/${id}/cancel`, {
-                  data: ""
+            const response = await axios.post(`https://dev-api.alun.app/api/pool/delivery/${id}/status`, {
+                  status: "Cancelled"
                }, {
                headers: {
                   Authorization: `Bearer ${token}`

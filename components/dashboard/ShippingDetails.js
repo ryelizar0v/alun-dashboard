@@ -1,14 +1,47 @@
-import { Button, Step, StepContent, StepLabel, Stepper, Typography,
-   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Divider 
+import { 
+   Button, 
+   Step, 
+   StepContent, 
+   StepLabel, 
+   Stepper, 
+   Typography,
+   Dialog, 
+   DialogTitle, 
+   DialogContent, 
+   DialogContentText, 
+   DialogActions, 
+   Divider 
 } from "@material-ui/core"
+import { makeStyles, withStyles } from "@material-ui/core/styles"
 import styles from "../../css/dashboard/shipment.module.css"
 import { useState } from "react"
 import cancelDelivery from "../../services/dashboard/cancelDelivery"
 import getDeliveries from "../../services/dashboard/getDeliveries"
+import dayjs from "dayjs"
+
+const useStyles = makeStyles(() => ({
+   root: {
+      background: "#fff",
+      border: "1px solid #000",
+      color: "#000",
+      transition: "all .5s",
+      '&$disabled': {
+         border: "none"
+      },
+      '&:hover': {
+         background: "#ddd"
+      }
+   },
+   disabled: {}
+}))
 
 export default function ShippingDetails(props) {
 
+   const cancelButton = useStyles()
+
    const { data, updateDeliveries, show } = props
+   const { delivery_status_histories } = data
+   const hasDeliveryHistory = delivery_status_histories?.length
 
    const [openDialog, setOpenDialog] = useState(false)
    const [deliveryToCancel, setDeliveryToCancel] = useState(null)
@@ -56,29 +89,22 @@ export default function ShippingDetails(props) {
       </div>
 
       <div className={styles.shipmentStatus}>
-         <Stepper activeStep={0} orientation="vertical">
-            <Step key={1} expanded>
-               <StepLabel>
-                  <Typography variant="h6"><strong>Picked up</strong></Typography>
-               </StepLabel>
-               <StepContent>
-                  <Typography variant="subtitle1">Iriga City, Camarines Sur</Typography>
-               </StepContent>
-            </Step>
-            <Step key={2}>
-               <StepLabel>
-                  <Typography variant="h6"><strong>In Transit</strong></Typography>
-               </StepLabel>
-            </Step>
-            <Step key={3} expanded>
-               <StepLabel>
-                  <Typography variant="h6"><strong>Delivered</strong></Typography>
-               </StepLabel>
-               <StepContent>
-                  <Typography variant="subtitle1">Pasig City, Metro Manila</Typography>
-               </StepContent>
-            </Step>
-         </Stepper>
+         {hasDeliveryHistory
+            ? <Stepper activeStep={delivery_status_histories.length-1} orientation="vertical">
+                  {delivery_status_histories?.map((info, i) => {
+                     return <Step key={i+1} expanded completed={i < 1 ? true : false }>
+                        <StepLabel>
+                           <Typography variant="h6"><strong>{info.status}</strong></Typography>
+                        </StepLabel>
+                        <StepContent>
+                           <Typography variant="subtitle1">{dayjs(info.createdAt).format("MMMM D, YYYY h:mm A")}</Typography>
+                        </StepContent>
+                     </Step>
+                  }).reverse()}
+               </Stepper>
+            : <Typography variant="h6" align="center"><strong>Delivery status history unavailable</strong></Typography>
+         }
+         
       </div>
 
       <div className={styles.actionButtons}>
@@ -87,26 +113,30 @@ export default function ShippingDetails(props) {
             size="large" 
             fullWidth 
             disableElevation
-            style={{
-               marginBottom: "0.5rem"
-            }}
+            style={{ marginBottom: "0.5rem" }}
             disabled={
-               (data.status == "Cancelled") 
-               ? true 
-               : false
+               (hasDeliveryHistory 
+                  ? delivery_status_histories[0].status == "Cancelled" ? true : false
+                  : true
+               )
             }
          >
             <Typography variant="h6">Print Waybill</Typography>
          </Button>
          <Button variant="contained" 
             color="primary" 
-            size="large" 
+            size="large"
+            classes={{
+               root: cancelButton.root,
+               disabled: cancelButton.disabled
+            }}
             fullWidth 
             disableElevation
             disabled={
-               (data.status == "Cancelled" || data.status == "Delivered") 
-               ? true 
-               : false
+               (hasDeliveryHistory 
+                  ? delivery_status_histories[0].status == "Cancelled" || delivery_status_histories[0].status == "Delivered" ? true : false
+                  : true
+               )
             }
             onClick={() => {
                handleOpenDialog()

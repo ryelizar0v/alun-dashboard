@@ -42,7 +42,8 @@
 }
 
 .cancelled {
-   background-color: #B3A696;
+   background-color: #FFFFFF;
+   border: 1px solid #000000;
 }
 
 .inTransit {
